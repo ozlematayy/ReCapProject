@@ -13,7 +13,7 @@ namespace ConsoleUI
 
             foreach (var cars in carManager.GetAll())
             {
-                Console.WriteLine(cars.BrandId+" "+ cars.Description);
+                Console.WriteLine(cars.BrandId+ " numaralı model açıklaması: "+ cars.Description);
             }
         }
     }
