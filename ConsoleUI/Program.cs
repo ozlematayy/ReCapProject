@@ -2,6 +2,7 @@
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
+using Entities.Concrete;
 using System;
 
 namespace ConsoleUI
@@ -14,10 +15,12 @@ namespace ConsoleUI
 
             foreach (var cars in carManager.GetCarDetailDtos())
             {
-                Console.WriteLine(cars.ColorName+" renkli "+cars.BrandName+" markalı aracın günlük fiyatı : "+cars.DailyPrice);
+                Console.WriteLine(cars.BrandName+" markalı "+cars.ColorName+" renkli aracın günlük fiyatı : "+cars.DailyPrice);
             }
 
-      
+
+
+
         }
     }
 }

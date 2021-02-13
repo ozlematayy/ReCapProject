@@ -17,22 +17,7 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public List<Car> GetAll()
-        {
-
-            return _carDal.GetAll();
-        }
-
-        public List<Car> GetCarsByBrandId(int brandId)
-        {
-  
-            return _carDal.GetAll(p => p.BrandId == brandId);
-        }
-
-        public List<Car> GetCarsByColorId(int colorId)
-        {
-            return _carDal.GetAll(p => p.ColorId == colorId);
-        }
+       
 
         public void Add(Car car)
         {
@@ -54,9 +39,34 @@ namespace Business.Concrete
             }
         }
 
+        public void Delete(Car entity)
+        {
+            _carDal.Delete(entity);
+        }
+
+        public List<Car> GetAll()
+        {
+            return _carDal.GetAll();
+        }
+
         public List<CarDetailDto> GetCarDetailDtos()
         {
             return _carDal.GetCarDetailDtos();
+        }
+
+        public List<Car> GetCarsByBrandId(int brandId)
+        {
+            return _carDal.GetAll(c => c.BrandId == brandId);
+        }
+
+        public List<Car> GetCarsByColorId(int colorId)
+        {
+            return _carDal.GetAll(c => c.ColorId == colorId);
+        }
+
+        public void Update(Car entity)
+        {
+            _carDal.Update(entity);
         }
     }
 }
