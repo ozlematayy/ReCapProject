@@ -10,32 +10,78 @@ namespace ConsoleUI
     class Program
     {
         static void Main(string[] args)
-        {/*
+        {
+            CarTest();
+
+            // UserTest();
+            //RentalTest();
+
+        }
+        private static void CarTest()
+        {
             CarManager carManager = new CarManager(new EfCarDal());
+
             var result = carManager.GetCarDetailDtos();
             if (result.Success == true)
             {
-                foreach (var cars in carManager.GetCarDetailDtos().Data)
+                foreach (var car in result.Data)
                 {
-                    Console.WriteLine(cars.BrandName + " markalı " + cars.ColorName + " renkli aracın günlük fiyatı : " + cars.DailyPrice);
+                    Console.WriteLine(car.BrandName + " markalı " + car.ColorName + " renkli aracın günlük fiyatı : " + car.DailyPrice);
                 }
             }
             else
             {
-                Console.WriteLine( result.Message ); 
+                Console.WriteLine(result.Message);
             }
-            */
-            Car car = new Car()
-            {
-                BrandId = 3,
-                ColorId = 1,
-                DailyPrice = 200,
-                Description = "Manuel Benzin",
-                ModelYear = "2015"
-            };
-            CarManager carManager = new CarManager(new EfCarDal());
-            carManager.Add(car);
 
         }
+      
+
+
+        private static void UserTest()
+        {
+            UserManager usersManager = new UserManager(new EfUserDal());
+            User user = new User
+            {
+                FirstName = "Özlem ",
+                LastName = "Atay",
+                Email = "ozlem@gmail.com",
+                Password = "1478963"
+            };
+            usersManager.Add(user);
+            
+            var result = usersManager.GetAll();
+            if (result.Success==true)
+            {
+                foreach (var users in result.Data)
+                {
+                    Console.WriteLine(users.FirstName + " " + users.LastName + "\n");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+        private static void RentalTest()
+        {
+            RentalManager rentalsManager = new RentalManager(new EfRentalDal());
+            DateTime rentDate = new DateTime(2017, 10, 6);
+            DateTime returnDate = new DateTime(2018, 10, 18);
+            Rental rentals = new Rental
+            {
+                CarId = 1,
+                CustomerId = 1,
+                RentDate = rentDate,
+                ReturnDate = returnDate
+            };
+            var result = rentalsManager.Add(rentals);
+            Console.WriteLine(result.Message);
+
+
+        }
+
+
+
     }
 }
