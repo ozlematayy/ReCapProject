@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -17,35 +19,38 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        public void Add(Color entity)
+        public IResult Add(Color entity)
         {
              _colorDal.Add(entity);
+           return  new SuccessResult(Messages.ColorAdded);
         }
 
-        public void Delete(Color entity)
+        public IResult Delete(Color entity)
         {
             _colorDal.Delete(entity);
+            return new SuccessResult(Messages.ColorDeleted);
         }
 
-        public List<Color> GetAll()
+        public IDataResult<List<Color>> GetAll()
         {
-            return _colorDal.GetAll();
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(),Messages.ColorListed);
         }
 
 
-        public List<Color> GetColorsByColorId(int colorId)
+        public IDataResult<List<Color>> GetColorsByColorId(int colorId)
         {
-            return _colorDal.GetAll(c => c.ColorId == colorId);
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(c => c.ColorId == colorId));
         }
 
-        public List<Color> GetColorsByColorName(string colorName)
+        public IDataResult<List<Color>> GetColorsByColorName(string colorName)
         {
-            return _colorDal.GetAll(c => c.ColorName == colorName);
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(c => c.ColorName == colorName));
         }
 
-        public void Update(Color entity)
+        public IResult Update(Color entity)
         {
             _colorDal.Update(entity);
+            return new SuccessResult(Messages.ColorUpdated);
         }
     }
 }
